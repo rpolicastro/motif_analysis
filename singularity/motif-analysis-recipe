@@ -19,7 +19,7 @@ conda update -n base -y -c defaults conda
 
 ## Create environment.
 
-conda create -n motif-analysis -y -c conda-forge -c bioconda \
+conda create -n motif-analysis -y -c conda-forge -c bioconda -c rsat \
 r-tidyverse \
 bioconductor-genomicranges \
 bioconductor-genomicfeatures \
