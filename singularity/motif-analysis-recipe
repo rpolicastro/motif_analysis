@@ -28,6 +28,10 @@ bioconductor-rsamtools \
 bioconductor-rtracklayer \
 bioconductor-bsgenome \
 bioconductor-rgadem \
+homer \
+gimmemotifs \
+meme \
+rsat
 
 ## Update environment.
 
