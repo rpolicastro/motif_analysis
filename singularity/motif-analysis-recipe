@@ -1,0 +1,44 @@
+bootstrap: docker
+From: continuumio/miniconda3
+
+%post
+
+## Prepare Conda
+## ----------
+
+## Add conda to path.
+
+export PATH=$PATH:/opt/conda/bin
+
+## Update conda.
+
+conda update -n base -y -c defaults conda
+
+## Install Conda Environment
+## ----------
+
+## Create environment.
+
+conda create -n motif-analysis -y -c conda-forge -c bioconda \
+r-tidyverse \
+bioconductor-genomicranges \
+bioconductor-genomicfeatures \
+bioconductor-biostrings \
+bioconductor-rsamtools \
+bioconductor-rtracklayer \
+bioconductor-bsgenome \
+bioconductor-rgadem \
+
+## Update environment.
+
+conda update -n motif-analysis -y -c conda-forge -c bioconda --all
+
+## Clean up extra files.
+
+conda clean -y --all
+
+%environment
+
+## Add software to environment
+
+export PATH=/opt/conda/envs/motif-analysis/bin:$PATH
