@@ -7,7 +7,7 @@
 ## Prepare Singularity Container
 ## ----------
 
-CONTAINER="library://rpolicastro/default/motif_analysis:1.0.0"
+CONTAINER="library://rpolicastro/default/motif_analysis:1.0.1"
 CONTAINER_NAME=$(basename $CONTAINER | tr ":" "_")".sif"
 
 ## Download container if it doesn't exist.
