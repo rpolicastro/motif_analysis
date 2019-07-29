@@ -17,9 +17,9 @@ library("BSgenome")
 
 ## Get bed file paths and names.
 
-bed.files <- list.files(file.path("..", "summits"), pattern=".*\\.bed")
+bed.files <- list.files("summits", pattern=".*\\.bed")
 bed.names <- str_replace(bed.files, "_summits.bed", "")
-bed.files <- file.path("..", "summits", bed.files)
+bed.files <- file.path("summits", bed.files)
 
 ## Import bed files as GRanges.
 
@@ -31,7 +31,7 @@ beds <- map(bed.files, ~import(., "bed")) %>%
 
 ## Import genome assembly.
 
-genome.assembly <- FaFile(file.path("..", "genome", "sacCer3.fasta"), "fasta")
+genome.assembly <- FaFile(file.path("genome", "sacCer3.fasta"), "fasta")
 
 assembly <- getSeq(genome.assembly)
 names(assembly) <- assembly %>%
@@ -70,12 +70,12 @@ bed.sequences <- map(beds.cleaned, ~getSeq(assembly, .))
 
 ## Export sequences as FASTA file.
 
-dir.create(file.path("..","results", "sequences"))
+dir.create(file.path("results", "sequences"))
 
 export.fasta <- function(x) {
 	bed <- bed.sequences[[x]]
 	names(bed) <- sprintf("PEAK_%s", 1:length(bed))
-	filename <- file.path("..", "results", "sequences", paste0(x, "_sequences.fasta"))
+	filename <- file.path("results", "sequences", paste0(x, "_sequences.fasta"))
 	writeXStringSet(bed, filename, format="fasta")
 }
 

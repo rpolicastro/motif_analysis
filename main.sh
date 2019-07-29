@@ -4,19 +4,23 @@
 ## Motif Analysis Pugh Reponse
 ###############################
 
-## Find Motifs
+## Prepare Singularity Container
 ## ----------
 
-## Create export directory.
+CONTAINER="library://rpolicastro/default/motif_analysis:1.0.0"
+CONTAINER_NAME=$(basename $CONTAINER | tr ":" "_")".sif"
 
-mkdir -p "./results/motifs"
+## Download container if it doesn't exist.
 
-## Get summit files.
+if [ ! -f "singularity/${CONTAINER_NAME}" ]; then
+	singularity pull -U $CONTAINER
+	mv $CONTAINER_NAME singularity
+fi
 
-SUMMIT_FILES=($(find "./summits" -name "*bed"))
+## Get Sequences Around Summits
+## ----------
 
-## Get corresponding sequences for each summit file.
-
-for SUMMIT in ${SUMMIT_FILES[@]}; do
-	findMotifsGenome.pl $SUMMIT ./genome/saccer3_assembly.fasta ./results/motifs
-done
+singularity exec \
+-eCB $PWD -H $PWD \
+singularity/$CONTAINER_NAME \
+Rscript ./R/get_sequences.R
